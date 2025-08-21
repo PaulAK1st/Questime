@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Users collection rules
+    match /users/{userId} {
+      // Allow users to read and write their own data
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow users to create their own document during signup
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Quiz collections (adjust based on your data structure)
+    match /quizzes/{quizId} {
+      // Allow authenticated users to read quizzes
+      allow read: if request.auth != null;
+      
+      // Only allow quiz creation/modification by authenticated non-anonymous users
+      allow write: if request.auth != null && !request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    
+    // Quiz results/scores
+    match /quiz_results/{resultId} {
+      // Users can read and write their own results
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      
+      // Allow creation if the userId matches the authenticated user
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // User progress/statistics
+    match /user_progress/{userId} {
+      // Allow users to read and write their own progress
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Leaderboards (if you have them)
+    match /leaderboards/{document=**} {
+      // Allow all authenticated users to read leaderboards
+      allow read: if request.auth != null;
+      
+      // Only allow writes from authenticated non-anonymous users
+      allow write: if request.auth != null && !request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    
+    // Categories or topics
+    match /categories/{categoryId} {
+      // Allow all authenticated users to read categories
+      allow read: if request.auth != null;
+      
+      // Restrict category creation to non-anonymous users
+      allow write: if request.auth != null && !request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    
+    // Rewards/achievements
+    match /rewards/{rewardId} {
+      // Allow authenticated users to read rewards
+      allow read: if request.auth != null;
+      
+      // Users can only update their own reward claims
+      allow write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Default rule - deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

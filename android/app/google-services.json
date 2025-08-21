@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "214769553814",
+    "project_id": "questime-project-beta",
+    "storage_bucket": "questime-project-beta.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214769553814:android:16bd8f60fc17a1d0ddcdb7",
+        "android_client_info": {
+          "package_name": "com.example.my_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu0jONn0aSeVYhi-oub7c-iwtPgOdjwcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214769553814:android:787f4eae925be52cddcdb7",
+        "android_client_info": {
+          "package_name": "com.example.questime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu0jONn0aSeVYhi-oub7c-iwtPgOdjwcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
